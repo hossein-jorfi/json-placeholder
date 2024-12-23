@@ -1,17 +1,11 @@
+import { RouterProvider } from "react-router";
 import { ThemeProvider } from "./components/theme-provider";
-import { ModeToggle } from "./components/ui/mode-toggle";
+import { router } from "./routes";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <div className="text-center mt-28">
-        <div>
-          <p className="text-6xl">Hello World</p>
-          <br />
-          <br />
-          <ModeToggle />
-        </div>
-      </div>
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }
