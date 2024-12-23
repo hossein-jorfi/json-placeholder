@@ -3,7 +3,9 @@ import {
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
-  SquareTerminal,
+  Mail,
+  Users,
+  ListTodo
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -45,13 +47,19 @@ const data = {
     {
       title: "Posts",
       url: "/posts",
-      icon: SquareTerminal,
+      icon: Mail,
       isActive: true,
     },
     {
       title: "Users",
       url: "/users",
-      icon: SquareTerminal,
+      icon: Users,
+      isActive: true,
+    },
+    {
+      title: "Todos",
+      url: "/todos",
+      icon: ListTodo,
       isActive: true,
     },
   ],
