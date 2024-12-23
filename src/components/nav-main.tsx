@@ -29,7 +29,7 @@ export function NavMain({
       <SidebarGroupLabel>Pages</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
-          <SidebarMenuItem>
+          <SidebarMenuItem key={item.url}>
             <SidebarMenuButton
               tooltip={item.title}
               onClick={() => navigateHandler(item.url)}
