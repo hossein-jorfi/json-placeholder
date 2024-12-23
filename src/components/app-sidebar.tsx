@@ -43,8 +43,14 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
+      title: "Posts",
+      url: "/posts",
+      icon: SquareTerminal,
+      isActive: true,
+    },
+    {
+      title: "Users",
+      url: "/users",
       icon: SquareTerminal,
       isActive: true,
     },
