@@ -1,7 +1,7 @@
 const Posts = () => {
   return (
     <div>
-      <p className="text-9xl">Posts</p>
+      <p className="text-7xl">Posts</p>
     </div>
   );
 };
