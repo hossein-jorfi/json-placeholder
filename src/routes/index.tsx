@@ -1,9 +1,17 @@
-import Posts from "@/pages/posts";
+// router
 import { createBrowserRouter, Navigate, Outlet } from "react-router";
+
+// components
+import Layout from "@/layout";
+import Posts from "@/pages/posts";
 
 export const router = createBrowserRouter([
   {
-    element: <Outlet />,
+    element: (
+      <Layout>
+        <Outlet />
+      </Layout>
+    ),
     children: [
       { index: true, element: <Navigate replace to="/posts" /> },
       {
