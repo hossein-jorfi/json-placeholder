@@ -6,7 +6,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 export function NavMain({
   items,
@@ -19,6 +19,7 @@ export function NavMain({
   }[];
 }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const navigateHandler = (url: string) => {
     navigate(url);
@@ -33,6 +34,9 @@ export function NavMain({
             <SidebarMenuButton
               tooltip={item.title}
               onClick={() => navigateHandler(item.url)}
+              className={`${
+                pathname?.toLowerCase() === item.url?.toLowerCase() && "outline outline-1 outline-sidebar-foreground/30"
+              }`}
             >
               {item.icon && <item.icon />}
               <span>{item.title}</span>
