@@ -1,5 +1,9 @@
 // hooks
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+
+// utils
+import { handlePostLikeLocalStorage, isPostLiked } from "./util";
 
 // assets
 import { Heart } from "lucide-react";
@@ -9,8 +13,6 @@ import { PostType } from "./types";
 
 // components
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { handlePostLikeLocalStorage, isPostLiked } from "./util";
 
 interface Props {
   post: PostType;
