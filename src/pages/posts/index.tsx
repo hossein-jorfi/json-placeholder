@@ -15,7 +15,7 @@ const Posts = () => {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
       {data?.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}

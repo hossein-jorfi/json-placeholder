@@ -19,7 +19,7 @@ const PostCard = ({ post }: Props) => {
   };
 
   return (
-    <div key={post.id} className="border p-4 rounded-lg flex flex-col gap-3">
+    <div key={post.id} className="border p-4 rounded-lg flex flex-col gap-3 justify-between">
       <p className="font-bold text-2xl">{post.title}</p>
       <p>{post.body}</p>
       <Button className="w-fit" onClick={() => navigateHandler(post?.id)}>
