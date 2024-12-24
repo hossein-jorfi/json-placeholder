@@ -16,7 +16,6 @@ const Posts = () => {
 
   if (error) return "An error has occurred: " + error.message;
 
-  console.log(data);
   return (
     <div className="flex flex-col gap-3">
       {data?.map((post) => (
