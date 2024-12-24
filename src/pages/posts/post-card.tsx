@@ -21,6 +21,26 @@ const PostCard = ({ post }: Props) => {
     navigate(`${id}`);
   };
 
+  const onLikeHandler = () => {
+    if (!localStorage?.getItem("liked-post")) {
+      localStorage.setItem("liked-post", JSON.stringify([]));
+    }
+    const likedPosts = JSON?.parse(localStorage?.getItem("liked-post") || "");
+
+    const isLiked = likedPosts.find((id: number) => id == post.id);
+    if (isLiked) {
+      localStorage.setItem(
+        "liked-post",
+        JSON.stringify(likedPosts?.filter((id: number) => id != post?.id))
+      );
+    } else {
+      localStorage.setItem(
+        "liked-post",
+        JSON.stringify([...likedPosts, post.id])
+      );
+    }
+  };
+
   return (
     <div
       key={post.id}
@@ -28,7 +48,9 @@ const PostCard = ({ post }: Props) => {
     >
       <div className="flex justify-between">
         <p className="font-semibold text-sm"># {post.id}</p>
-        <Button variant='ghost'>{<Heart />}</Button>
+        <Button variant="ghost" onClick={onLikeHandler}>
+          {<Heart />}
+        </Button>
       </div>
       <p className="font-bold text-2xl">{post.title}</p>
       <p className="text-muted-foreground">{post.body}</p>
