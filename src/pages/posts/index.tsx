@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 // api
 import useFetchData from "@/service/use-fetch-data";
 
@@ -8,13 +10,27 @@ import { PostType } from "./types";
 import PostCard from "./post-card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
 
 const Posts = () => {
   const [showLikedPosts, setShowLikedPosts] = useState(false);
-  console.log(showLikedPosts);
+  const [filtredData, setFiltredData] = useState<PostType[]>([]);
 
   const { isPending, error, data } = useFetchData<PostType[]>(["posts"]);
+
+  useEffect(() => {
+    setFiltredData(data || []);
+  }, [data]);
+
+  const filterData = async () => {
+    const show = !showLikedPosts;
+    if (show) {
+      const likedPosts = JSON?.parse(localStorage?.getItem("liked-post") || "[]");
+      setFiltredData(data?.filter((i) => likedPosts?.includes(i.id)) || []);
+    } else {
+      setFiltredData(data || []);
+    }
+    setShowLikedPosts(!showLikedPosts);
+  };
 
   if (isPending) return "Loading...";
 
@@ -23,15 +39,11 @@ const Posts = () => {
   return (
     <div className="space-y-4">
       <div className="flex items-center space-x-2">
-        <Checkbox
-          id="terms"
-          checked={showLikedPosts}
-          onClick={() => setShowLikedPosts(!showLikedPosts)}
-        />
+        <Checkbox id="terms" checked={showLikedPosts} onClick={filterData} />
         <Label htmlFor="terms">Liked Posts</Label>
       </div>
       <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-        {data?.map((post) => (
+        {filtredData?.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
       </div>
