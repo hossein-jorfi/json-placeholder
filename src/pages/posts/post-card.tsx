@@ -1,6 +1,9 @@
 // hooks
 import { useNavigate } from "react-router";
 
+// assets
+import { Heart } from "lucide-react";
+
 // types
 import { PostType } from "./types";
 
@@ -25,7 +28,7 @@ const PostCard = ({ post }: Props) => {
     >
       <div className="flex justify-between">
         <p className="font-semibold text-sm"># {post.id}</p>
-        like
+        <Button variant='ghost'>{<Heart />}</Button>
       </div>
       <p className="font-bold text-2xl">{post.title}</p>
       <p className="text-muted-foreground">{post.body}</p>
