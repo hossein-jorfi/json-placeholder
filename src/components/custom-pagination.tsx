@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/pagination";
 
 import { usePagination } from "@/hooks/use-pagination";
+import { cn } from "@/lib/utils";
 
 interface Props {
   onPageChange: (n: number) => void;
@@ -52,7 +53,10 @@ const CustomPagination = (props: Props) => {
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem onClick={onPrevious}>
+        <PaginationItem
+          onClick={currentPage === 1 ? () => {} : onPrevious}
+          className={cn(currentPage === 1 && "opacity-40")}
+        >
           <PaginationPrevious />
         </PaginationItem>
         {paginationRange?.map((pageNumber) => {
@@ -64,15 +68,19 @@ const CustomPagination = (props: Props) => {
               </PaginationItem>
             );
           }
-
           // Render our Page Pills
           return (
             <PaginationItem onClick={() => onPageChange(+pageNumber)}>
-              <PaginationLink>{pageNumber}</PaginationLink>
+              <PaginationLink isActive={currentPage == pageNumber}>
+                {pageNumber}
+              </PaginationLink>
             </PaginationItem>
           );
         })}
-        <PaginationItem onClick={onNext}>
+        <PaginationItem
+          onClick={currentPage === lastPage ? () => {} : onNext}
+          className={cn(currentPage === lastPage && "opacity-40")}
+        >
           <PaginationNext />
         </PaginationItem>
       </PaginationContent>
