@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useLocation } from "react-router";
 import { ModeToggle } from "@/components/ui/mode-toggle";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Props {
   children: ReactNode;
@@ -43,10 +44,12 @@ export default function Layout({ children }: Props) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
-        {renderHeader}
-        <div className="px-4 pb-4">{children}</div>
-      </SidebarInset>
+      <ScrollArea className="h-screen w-full">
+        <SidebarInset>
+          {renderHeader}
+          <div className="px-4 pb-4">{children}</div>
+        </SidebarInset>
+      </ScrollArea>
     </SidebarProvider>
   );
 }
