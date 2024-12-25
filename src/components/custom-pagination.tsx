@@ -63,14 +63,17 @@ const CustomPagination = (props: Props) => {
           // If the pageItem is a DOT, render the DOTS unicode character
           if (pageNumber === "DOTS") {
             return (
-              <PaginationItem>
+              <PaginationItem key={pageNumber}>
                 <PaginationEllipsis />
               </PaginationItem>
             );
           }
           // Render our Page Pills
           return (
-            <PaginationItem onClick={() => onPageChange(+pageNumber)}>
+            <PaginationItem
+              key={pageNumber}
+              onClick={() => onPageChange(+pageNumber)}
+            >
               <PaginationLink isActive={currentPage == pageNumber}>
                 {pageNumber}
               </PaginationLink>
