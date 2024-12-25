@@ -1,4 +1,6 @@
+// hooks
 import { useEffect, useState } from "react";
+import usePagination from "@/hooks/use-pagination";
 
 // api
 import useFetchData from "@/service/use-fetch-data";
@@ -15,6 +17,8 @@ import PostsSkeleton from "./posts-skeleton";
 const Posts = () => {
   const [showLikedPosts, setShowLikedPosts] = useState(false);
   const [filtredData, setFiltredData] = useState<PostType[]>([]);
+
+  const pagination = usePagination();
 
   const { isPending, error, data } = useFetchData<PostType[]>(["posts"]);
   console.log(isPending);
@@ -48,7 +52,12 @@ const Posts = () => {
         {isPending ? (
           <PostsSkeleton />
         ) : (
-          filtredData?.map((post) => <PostCard key={post.id} post={post} />)
+          filtredData
+            ?.slice(
+              pagination.page * pagination.rowsPerPage,
+              pagination.page * pagination.rowsPerPage + pagination.rowsPerPage
+            )
+            ?.map((post) => <PostCard key={post.id} post={post} />)
         )}
       </div>
     </div>
