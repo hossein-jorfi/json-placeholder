@@ -28,7 +28,7 @@ const PostCard = ({ post }: Props) => {
   }, [liked, post.id]);
 
   const navigateHandler = (id: number) => {
-    navigate(`${id}`);
+    navigate(`detail/${id}`);
   };
 
   const onLikeHandler = () => {

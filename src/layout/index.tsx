@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -6,6 +6,7 @@ import {
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {
   SidebarInset,
@@ -23,8 +24,6 @@ interface Props {
 export default function Layout({ children }: Props) {
   const { pathname } = useLocation();
 
-  console.log(pathname)
-
   const renderHeader = (
     <header className="flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4">
       <div className="flex items-center gap-2">
@@ -32,9 +31,16 @@ export default function Layout({ children }: Props) {
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbPage>{pathname?.split("/")[1]}</BreadcrumbPage>
-            </BreadcrumbItem>
+            {pathname?.split("/")?.map((item: string, index) => (
+              <React.Fragment key={item}>
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{item}</BreadcrumbPage>
+                </BreadcrumbItem>
+                {pathname?.split("/")?.length != index + 1 && (
+                  <BreadcrumbSeparator className="hidden md:block" />
+                )}
+              </React.Fragment>
+            ))}
           </BreadcrumbList>
         </Breadcrumb>
       </div>
