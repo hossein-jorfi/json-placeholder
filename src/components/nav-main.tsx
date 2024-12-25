@@ -35,7 +35,7 @@ export function NavMain({
               tooltip={item.title}
               onClick={() => navigateHandler(item.url)}
               className={`${
-                pathname?.toLowerCase() === item.url?.toLowerCase() && "outline outline-1 outline-sidebar-foreground/30"
+                pathname?.split('/').includes(item.url?.split('/')[1]) && "outline outline-1 outline-sidebar-foreground/30"
               }`}
             >
               {item.icon && <item.icon />}
