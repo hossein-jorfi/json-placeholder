@@ -6,6 +6,7 @@ import Layout from "@/layout";
 import Posts from "@/pages/posts";
 import Users from "@/pages/users";
 import ErrorPage from "@/pages/error";
+import Post from "@/pages/post";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,16 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate replace to="/posts" /> },
       {
         path: "posts",
-        element: <Posts />,
+        children: [
+          {
+            index: true,
+            element: <Posts />,
+          },
+          {
+            path: ':id',
+            element: <Post />,
+          }
+        ]
       },
       {
         path: "users",
