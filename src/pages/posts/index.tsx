@@ -38,6 +38,7 @@ const Posts = () => {
       setFiltredData(data || []);
     }
     setShowLikedPosts(!showLikedPosts);
+
   };
 
   const currentTableData = useMemo(() => {
@@ -64,14 +65,12 @@ const Posts = () => {
         )}
       </div>
 
-      {filtredData?.length > 0 && (
-        <CustomPagination
-          currentPage={currentPage}
-          totalCount={data?.length || 0}
-          pageSize={PostsPerPage}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
-      )}
+      <CustomPagination
+        currentPage={currentPage}
+        totalCount={filtredData?.length || 0}
+        pageSize={PostsPerPage}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 };
