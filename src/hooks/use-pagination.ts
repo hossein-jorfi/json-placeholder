@@ -1,188 +1,90 @@
-import { useState, useCallback } from "react";
+import { useMemo } from "react";
 
-// ----------------------------------------------------------------------
-
-export type ReturnType = {
-  dense: boolean;
-  page: number;
-  rowsPerPage: number;
-  order: "asc" | "desc";
-  orderBy: string;
-  //
-  selected: string[];
-  onSelectRow: (id: string) => void;
-  onSelectAllRows: (checked: boolean, newSelecteds: string[]) => void;
-  //
-  onResetPage: VoidFunction;
-  onSort: (id: string) => void;
-  onChangePage: (event: unknown, newPage: number) => void;
-  onChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeDense: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onUpdatePageDeleteRow: (totalRowsInPage: number) => void;
-  onUpdatePageDeleteRows: ({
-    totalRowsInPage,
-    totalRowsFiltered,
-  }: {
-    totalRowsInPage: number;
-    totalRowsFiltered: number;
-  }) => void;
-  //
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  setDense: React.Dispatch<React.SetStateAction<boolean>>;
-  setOrder: React.Dispatch<React.SetStateAction<"desc" | "asc">>;
-  setOrderBy: React.Dispatch<React.SetStateAction<string>>;
-  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
-  setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export type UsePaginationProps = {
-  defaultDense?: boolean;
-  defaultOrder?: "asc" | "desc";
-  defaultOrderBy?: string;
-  defaultSelected?: string[];
-  defaultRowsPerPage?: number;
-  defaultCurrentPage?: number;
-};
-
-export default function usePagination(props?: UsePaginationProps): ReturnType {
-  const [dense, setDense] = useState(!!props?.defaultDense);
-
-  const [page, setPage] = useState(props?.defaultCurrentPage || 0);
-
-  const [orderBy, setOrderBy] = useState(props?.defaultOrderBy || "name");
-
-  const [rowsPerPage, setRowsPerPage] = useState(
-    props?.defaultRowsPerPage || 10
-  );
-
-  const [order, setOrder] = useState<"asc" | "desc">(
-    props?.defaultOrder || "asc"
-  );
-
-  const [selected, setSelected] = useState<string[]>(
-    props?.defaultSelected || []
-  );
-
-  const onSort = useCallback(
-    (id: string) => {
-      const isAsc = orderBy === id && order === "asc";
-      if (id !== "") {
-        setOrder(isAsc ? "desc" : "asc");
-        setOrderBy(id);
-      }
-    },
-    [order, orderBy]
-  );
-
-  const onSelectRow = useCallback(
-    (inputValue: string) => {
-      const newSelected = selected.includes(inputValue)
-        ? selected.filter((value) => value !== inputValue)
-        : [...selected, inputValue];
-
-      setSelected(newSelected);
-    },
-    [selected]
-  );
-
-  const onChangeRowsPerPage = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPage(0);
-      setRowsPerPage(parseInt(event.target.value, 10));
-    },
-    []
-  );
-
-  const onChangeDense = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setDense(event.target.checked);
-    },
-    []
-  );
-
-  const onSelectAllRows = useCallback(
-    (checked: boolean, inputValue: string[]) => {
-      if (checked) {
-        setSelected(inputValue);
-        return;
-      }
-      setSelected([]);
-    },
-    []
-  );
-
-  const onChangePage = useCallback((event: unknown, newPage: number) => {
-    setPage(newPage);
-  }, []);
-
-  const onResetPage = useCallback(() => {
-    setPage(0);
-  }, []);
-
-  const onUpdatePageDeleteRow = useCallback(
-    (totalRowsInPage: number) => {
-      setSelected([]);
-      if (page) {
-        if (totalRowsInPage < 2) {
-          setPage(page - 1);
-        }
-      }
-    },
-    [page]
-  );
-
-  const onUpdatePageDeleteRows = useCallback(
-    ({
-      totalRowsInPage,
-      totalRowsFiltered,
-    }: {
-      totalRowsInPage: number;
-      totalRowsFiltered: number;
-    }) => {
-      const totalSelected = selected.length;
-
-      setSelected([]);
-
-      if (page) {
-        if (totalSelected === totalRowsInPage) {
-          setPage(page - 1);
-        } else if (totalSelected === totalRowsFiltered) {
-          setPage(0);
-        } else if (totalSelected > totalRowsInPage) {
-          const newPage =
-            Math.ceil((totalRowsFiltered - totalSelected) / rowsPerPage) - 1;
-
-          setPage(newPage);
-        }
-      }
-    },
-    [page, rowsPerPage, selected.length]
-  );
-
-  return {
-    dense,
-    order,
-    page,
-    orderBy,
-    rowsPerPage,
-    //
-    selected,
-    onSelectRow,
-    onSelectAllRows,
-    //
-    onSort,
-    onChangePage,
-    onChangeDense,
-    onResetPage,
-    onChangeRowsPerPage,
-    onUpdatePageDeleteRow,
-    onUpdatePageDeleteRows,
-    //
-    setPage,
-    setDense,
-    setOrder,
-    setOrderBy,
-    setSelected,
-    setRowsPerPage,
-  };
+interface Props {
+  totalCount: number;
+  pageSize: number;
+  siblingCount?: number;
+  currentPage: number;
 }
+
+const range = (start: number, end: number) => {
+  const length = end - start + 1;
+  /*
+      Create an array of certain length and set the elements within it from
+    start value to end value.
+  */
+  return Array.from({ length }, (_, idx) => idx + start);
+};
+
+export const usePagination = ({
+  totalCount,
+  pageSize,
+  siblingCount = 1,
+  currentPage,
+}: Props) => {
+  const paginationRange = useMemo(() => {
+    const totalPageCount = Math.ceil(totalCount / pageSize);
+
+    // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
+    const totalPageNumbers = siblingCount + 5;
+
+    /*
+      Case 1:
+      If the number of pages is less than the page numbers we want to show in our
+      paginationComponent, we return the range [1..totalPageCount]
+    */
+    if (totalPageNumbers >= totalPageCount) {
+      return range(1, totalPageCount);
+    }
+
+    /*
+        Calculate left and right sibling index and make sure they are within range 1 and totalPageCount
+    */
+    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
+    const rightSiblingIndex = Math.min(
+      currentPage + siblingCount,
+      totalPageCount
+    );
+
+    /*
+      We do not show dots just when there is just one page number to be inserted between the extremes of sibling and the page limits i.e 1 and totalPageCount. Hence we are using leftSiblingIndex > 2 and rightSiblingIndex < totalPageCount - 2
+    */
+    const shouldShowLeftDots = leftSiblingIndex > 2;
+    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2;
+
+    const firstPageIndex = 1;
+    const lastPageIndex = totalPageCount;
+
+    /*
+        Case 2: No left dots to show, but rights dots to be shown
+    */
+    if (!shouldShowLeftDots && shouldShowRightDots) {
+      const leftItemCount = 3 + 2 * siblingCount;
+      const leftRange = range(1, leftItemCount);
+
+      return [...leftRange, "DOTS", totalPageCount];
+    }
+
+    /*
+        Case 3: No right dots to show, but left dots to be shown
+    */
+    if (shouldShowLeftDots && !shouldShowRightDots) {
+      const rightItemCount = 3 + 2 * siblingCount;
+      const rightRange = range(
+        totalPageCount - rightItemCount + 1,
+        totalPageCount
+      );
+      return [firstPageIndex, 'DOTS', ...rightRange];
+    }
+
+    /*
+        Case 4: Both left and right dots to be shown
+    */
+    if (shouldShowLeftDots && shouldShowRightDots) {
+      const middleRange = range(leftSiblingIndex, rightSiblingIndex);
+      return [firstPageIndex, "DOTS", ...middleRange, "DOTS", lastPageIndex];
+    }
+  }, [totalCount, pageSize, siblingCount, currentPage]);
+
+  return paginationRange;
+};

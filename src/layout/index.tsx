@@ -45,7 +45,7 @@ export default function Layout({ children }: Props) {
       <AppSidebar />
       <SidebarInset>
         {renderHeader}
-        <div className="px-4">{children}</div>
+        <div className="px-4 pb-4">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

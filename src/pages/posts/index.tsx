@@ -13,15 +13,13 @@ import PostCard from "./post-card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import PostsSkeleton from "./posts-skeleton";
+import PostsPagination from "./posts-pagination";
 
 const Posts = () => {
   const [showLikedPosts, setShowLikedPosts] = useState(false);
   const [filtredData, setFiltredData] = useState<PostType[]>([]);
 
-  const pagination = usePagination();
-
   const { isPending, error, data } = useFetchData<PostType[]>(["posts"]);
-  console.log(isPending);
 
   useEffect(() => {
     setFiltredData(data || []);
@@ -52,14 +50,13 @@ const Posts = () => {
         {isPending ? (
           <PostsSkeleton />
         ) : (
-          filtredData
-            ?.slice(
-              pagination.page * pagination.rowsPerPage,
-              pagination.page * pagination.rowsPerPage + pagination.rowsPerPage
-            )
-            ?.map((post) => <PostCard key={post.id} post={post} />)
+          filtredData?.map((post) => <PostCard key={post.id} post={post} />)
         )}
       </div>
+
+      {/* {filtredData?.length > 0 && (
+        <PostsPagination paginationHook={pagination} />
+      )} */}
     </div>
   );
 };
