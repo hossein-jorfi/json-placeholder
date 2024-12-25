@@ -1,6 +1,5 @@
 // hooks
-import { useEffect, useState } from "react";
-import usePagination from "@/hooks/use-pagination";
+import { useEffect, useMemo, useState } from "react";
 
 // api
 import useFetchData from "@/service/use-fetch-data";
@@ -13,11 +12,14 @@ import PostCard from "./post-card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import PostsSkeleton from "./posts-skeleton";
-import PostsPagination from "./posts-pagination";
+import CustomPagination from "@/components/custom-pagination";
+
+const PostsPerPage = 10;
 
 const Posts = () => {
   const [showLikedPosts, setShowLikedPosts] = useState(false);
   const [filtredData, setFiltredData] = useState<PostType[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { isPending, error, data } = useFetchData<PostType[]>(["posts"]);
 
@@ -38,6 +40,12 @@ const Posts = () => {
     setShowLikedPosts(!showLikedPosts);
   };
 
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PostsPerPage;
+    const lastPageIndex = firstPageIndex + PostsPerPage;
+    return filtredData?.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, filtredData]);
+
   if (error) return "An error has occurred: " + error.message;
 
   return (
@@ -50,13 +58,20 @@ const Posts = () => {
         {isPending ? (
           <PostsSkeleton />
         ) : (
-          filtredData?.map((post) => <PostCard key={post.id} post={post} />)
+          currentTableData?.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))
         )}
       </div>
 
-      {/* {filtredData?.length > 0 && (
-        <PostsPagination paginationHook={pagination} />
-      )} */}
+      {filtredData?.length > 0 && (
+        <CustomPagination
+          currentPage={currentPage}
+          totalCount={data?.length || 0}
+          pageSize={PostsPerPage}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      )}
     </div>
   );
 };

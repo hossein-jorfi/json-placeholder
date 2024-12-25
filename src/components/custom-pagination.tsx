@@ -13,12 +13,12 @@ import { usePagination } from "@/hooks/use-pagination";
 interface Props {
   onPageChange: (n: number) => void;
   totalCount: number;
-  siblingCount: number;
+  siblingCount?: number;
   currentPage: number;
   pageSize: number;
 }
 
-const PostsPagination = (props: Props) => {
+const CustomPagination = (props: Props) => {
   const {
     onPageChange,
     totalCount,
@@ -57,25 +57,21 @@ const PostsPagination = (props: Props) => {
         </PaginationItem>
         {paginationRange?.map((pageNumber) => {
           // If the pageItem is a DOT, render the DOTS unicode character
-          if (pageNumber === 'DOTS') {
-            return <li className="pagination-item dots">&#8230;</li>;
+          if (pageNumber === "DOTS") {
+            return (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            );
           }
 
           // Render our Page Pills
           return (
-            <li
-              onClick={() => onPageChange(+pageNumber)}
-            >
-              {pageNumber}
-            </li>
+            <PaginationItem onClick={() => onPageChange(+pageNumber)}>
+              <PaginationLink>{pageNumber}</PaginationLink>
+            </PaginationItem>
           );
         })}
-        {/* <PaginationItem>
-          <PaginationLink>1</PaginationLink>
-        </PaginationItem> */}
-        {/* <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem> */}
         <PaginationItem onClick={onNext}>
           <PaginationNext />
         </PaginationItem>
@@ -84,4 +80,4 @@ const PostsPagination = (props: Props) => {
   );
 };
 
-export default PostsPagination;
+export default CustomPagination;
