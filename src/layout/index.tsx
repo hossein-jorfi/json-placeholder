@@ -49,7 +49,7 @@ export default function Layout({ children }: Props) {
                   <BreadcrumbPage>{item}</BreadcrumbPage>
                 </BreadcrumbItem>
                 {pathname?.split("/")?.length != index + 1 && (
-                  <BreadcrumbSeparator className="hidden md:block" />
+                  <BreadcrumbSeparator />
                 )}
               </React.Fragment>
             ))}

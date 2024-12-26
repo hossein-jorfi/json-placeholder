@@ -11,3 +11,10 @@ export interface CommentType {
   email: string;
   body: string;
 }
+export interface UserType {
+  id: number;
+  postId: number;
+  name: string;
+  email: string;
+  body: string;
+}

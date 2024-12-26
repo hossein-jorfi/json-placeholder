@@ -7,9 +7,17 @@ import { useParams } from "react-router";
 const Post = () => {
   const { postId } = useParams();
 
-  const { error, data } = useFetchData<PostType>(["posts", postId  || '']);
-  // const commentsQuery = useFetchData<PostType>(["posts", postId  || '', "comments"]);
+  const { isPending, error, data } = useFetchData<PostType>([
+    "posts",
+    postId || "",
+  ]);
 
+  const userQuery = useFetchData(
+    ["users", `${data?.userId}`],
+    !isPending
+  );
+
+  // const commentsQuery = useFetchData<PostType>(["posts", postId  || '', "comments"]);
 
   if (error) return "An error has occurred: " + error.message;
 
@@ -23,7 +31,7 @@ const Post = () => {
             <Heart />
           </Button>
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 mt-1">
           <h3 className=" font-bold text-3xl">{data?.title}</h3>
           <h3 className="text-2xl text-muted-foreground">{data?.body}</h3>
         </div>
