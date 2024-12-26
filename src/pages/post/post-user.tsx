@@ -16,7 +16,10 @@ const PostUser = ({ data }: Props) => {
           {data?.name?.split(" ")?.[1]?.[0]}
         </AvatarFallback>
       </Avatar>
-      <p>{data?.name}</p>
+      <div className="flex flex-col">
+        <p className="text-sm font-bold">{data?.name}</p>
+        <p className="text-xs font-semibold opacity-50">{data?.email}</p>
+      </div>
     </div>
   );
 };
