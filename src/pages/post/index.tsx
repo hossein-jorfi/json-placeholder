@@ -26,7 +26,7 @@ const Post = () => {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <div className="flex justify-center items-center mt-10 md:mt-20">
+    <div className="flex justify-center items-center sm:mt-10 xl:mt-20">
       <div className="border-2 rounded-lg w-full md:w-2/3 p-5 space-y-3">
         <div className="flex items-center justify-between">
           <PostUser data={userQuery.data} isLoading={userQuery.isPending} />

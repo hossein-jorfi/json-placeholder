@@ -9,8 +9,8 @@ interface Props {
 
 const PostComments = ({ data }: Props) => {
   return (
-    <div className="flex flex-col max-h-72 overflow-hidden gap-3">
-      Comments
+    <div className="flex flex-col max-h-72 overflow-hidden gap-2">
+      <p className="text-sm font-semibold">Comments</p>
       <ScrollArea className="flex flex-col">
         {data?.map((comment, index) => (
           <div
