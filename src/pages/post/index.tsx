@@ -3,7 +3,7 @@ import { PostType } from "../posts/types";
 
 const Post = () => {
   const { isPending, error, data } = useFetchData<PostType>(["posts", "1"]);
-  console.log(data);
+  const commentsQuery = useFetchData<PostType>(["posts", "1", "comments"]);
 
   return <div>Post Single</div>;
 };
