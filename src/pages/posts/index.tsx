@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import useFetchData from "@/service/use-fetch-data";
 
 // types
-import { PostType } from "./types";
+import { PostType } from "@/defenitions";
 
 // components
 import PostCard from "./post-card";

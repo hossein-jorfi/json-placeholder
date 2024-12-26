@@ -9,7 +9,7 @@ import { handlePostLikeLocalStorage, isPostLiked } from "./util";
 import { Heart } from "lucide-react";
 
 // types
-import { PostType } from "./types";
+import { PostType } from "@/defenitions";
 
 // components
 import { Button } from "@/components/ui/button";

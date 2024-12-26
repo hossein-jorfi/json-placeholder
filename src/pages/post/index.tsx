@@ -1,5 +1,5 @@
 import useFetchData from "@/service/use-fetch-data";
-import { PostType } from "../posts/types";
+import { PostType } from "@/defenitions";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useParams } from "react-router";
