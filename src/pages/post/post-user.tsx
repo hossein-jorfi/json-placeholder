@@ -1,12 +1,15 @@
 import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PostUserSkeleton } from "./post-skeleton";
 
 interface Props {
   data: UserType | undefined;
   isLoading: boolean;
 }
 
-const PostUser = ({ data }: Props) => {
+const PostUser = ({ data, isLoading }: Props) => {
+  if (isLoading) return <PostUserSkeleton />;
+
   return (
     <div className="flex items-center gap-2">
       <Avatar>

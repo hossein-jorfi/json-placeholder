@@ -5,13 +5,7 @@ const PostSkeleton = () => {
     <div className="flex justify-center items-center sm:mt-10 xl:mt-20">
       <div className="border-2 rounded-lg w-full md:w-2/3 p-5 space-y-3">
         <div className="flex items-center gap-3 justify-between">
-          <div className="flex items-center gap-2">
-            <Skeleton className="w-10 h-10 rounded-full" />
-            <div className="flex flex-col gap-2">
-              <Skeleton className="w-28 h-4" />
-              <Skeleton className="w-40 h-4" />
-            </div>
-          </div>
+          <PostUserSkeleton />
           <Skeleton className="w-10 h-10 rounded-full" />
         </div>
         <div className="w-full border" />
@@ -48,3 +42,13 @@ const PostSkeleton = () => {
 };
 
 export default PostSkeleton;
+
+export const PostUserSkeleton = () => (
+  <div className="flex items-center gap-2">
+    <Skeleton className="w-10 h-10 rounded-full" />
+    <div className="flex flex-col gap-2">
+      <Skeleton className="w-28 h-4" />
+      <Skeleton className="w-40 h-4" />
+    </div>
+  </div>
+);
