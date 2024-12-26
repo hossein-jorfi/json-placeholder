@@ -5,6 +5,7 @@ import { Heart } from "lucide-react";
 import { useParams } from "react-router";
 import PostUser from "./post-user";
 import PostComments from "./post-comments";
+import PostSkeleton from "./post-skeleton";
 
 const Post = () => {
   const { postId } = useParams();
@@ -24,6 +25,8 @@ const Post = () => {
   );
 
   if (error) return "An error has occurred: " + error.message;
+
+  if (isPending) return <PostSkeleton />
 
   return (
     <div className="flex justify-center items-center sm:mt-10 xl:mt-20">
