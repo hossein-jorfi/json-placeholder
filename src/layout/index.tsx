@@ -13,7 +13,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -23,6 +23,13 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const navigateHandler = (item: string, index: number) => {
+    if (index == 1) {
+      navigate(item);
+    }
+  };
 
   const renderHeader = (
     <header className="flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4">
@@ -33,7 +40,12 @@ export default function Layout({ children }: Props) {
           <BreadcrumbList>
             {pathname?.split("/")?.map((item: string, index) => (
               <React.Fragment key={item}>
-                <BreadcrumbItem>
+                <BreadcrumbItem
+                  onClick={() => navigateHandler(item, index)}
+                  className={`${
+                    index == 1 ? "cursor-pointer hover:underline" : "cursor-default"
+                  }`}
+                >
                   <BreadcrumbPage>{item}</BreadcrumbPage>
                 </BreadcrumbItem>
                 {pathname?.split("/")?.length != index + 1 && (
