@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
             element: <Posts />,
           },
           {
-            path: 'detail/:id',
+            path: 'detail/:postId',
             element: <Post />,
           }
         ]

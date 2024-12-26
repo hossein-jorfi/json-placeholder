@@ -2,10 +2,14 @@ import useFetchData from "@/service/use-fetch-data";
 import { PostType } from "../posts/types";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import { useParams } from "react-router";
 
 const Post = () => {
-  const { error, data } = useFetchData<PostType>(["posts", "1"]);
-  // const commentsQuery = useFetchData<PostType>(["posts", "1", "comments"]);
+  const { postId } = useParams();
+
+  const { error, data } = useFetchData<PostType>(["posts", postId  || '']);
+  // const commentsQuery = useFetchData<PostType>(["posts", postId  || '', "comments"]);
+
 
   if (error) return "An error has occurred: " + error.message;
 
