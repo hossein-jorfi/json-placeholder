@@ -1,6 +1,7 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CommentType } from "@/defenitions";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Props {
   data: CommentType[] | undefined;
@@ -15,9 +16,21 @@ const PostComments = ({ data }: Props) => {
         {data?.map((comment, index) => (
           <div
             key={comment.id}
-            className={cn("flex flex-col border p-3 rounded-lg my-3", index == 0 && 'mt-0')}
+            className={cn(
+              "flex flex-col border p-3 rounded-lg my-3",
+              index == 0 && "mt-0"
+            )}
           >
-            <p className="font-semibold opacity-70">{comment.name}</p>
+            <div className="flex gap-2 items-center">
+              <Avatar className="w-7 h-7 text-xs">
+                <AvatarImage src="" alt="@shadcn" />
+                <AvatarFallback>
+                  {comment?.name?.split(" ")?.[0]?.[0]}
+                  {comment?.name?.split(" ")?.[1]?.[0]}
+                </AvatarFallback>
+              </Avatar>
+              <p className="font-semibold opacity-70">{comment.name}</p>
+            </div>
             <p className="opacity-50">{comment.body}</p>
           </div>
         ))}
