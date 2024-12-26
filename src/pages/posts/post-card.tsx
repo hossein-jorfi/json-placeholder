@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 // utils
-import { handlePostLikeLocalStorage, isPostLiked } from "./util";
+import { handlePostLikeLocalStorage, isPostLiked } from "@/lib/post-utils";
 
 // assets
 import { Heart } from "lucide-react";
