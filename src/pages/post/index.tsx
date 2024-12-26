@@ -1,8 +1,9 @@
 import useFetchData from "@/service/use-fetch-data";
-import { PostType } from "@/defenitions";
+import { PostType, UserType } from "@/defenitions";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useParams } from "react-router";
+import PostUser from "./post-user";
 
 const Post = () => {
   const { postId } = useParams();
@@ -12,7 +13,7 @@ const Post = () => {
     postId || "",
   ]);
 
-  const userQuery = useFetchData(
+  const userQuery = useFetchData<UserType>(
     ["users", `${data?.userId}`],
     !isPending
   );
@@ -25,7 +26,10 @@ const Post = () => {
     <div className="flex justify-center items-center mt-10 md:mt-20">
       <div className="border-2 rounded-lg w-full md:w-2/3 p-5">
         <div className="flex items-center justify-between">
-          <p># {data?.id}</p>
+          <div className="flex items-center justify-between gap-5">
+            <PostUser data={userQuery.data} isLoading={userQuery.isPending} /> -
+            <p># {data?.id}</p>
+          </div>
           <Button variant="ghost" size="icon">
             {/* {liked === true ? <Heart color="red" fill="red" /> : <Heart />} */}
             <Heart />
