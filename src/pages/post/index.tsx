@@ -1,9 +1,10 @@
 import useFetchData from "@/service/use-fetch-data";
-import { PostType, UserType } from "@/defenitions";
+import { CommentType, PostType, UserType } from "@/defenitions";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { useParams } from "react-router";
 import PostUser from "./post-user";
+import PostComments from "./post-comments";
 
 const Post = () => {
   const { postId } = useParams();
@@ -12,13 +13,15 @@ const Post = () => {
     "posts",
     postId || "",
   ]);
-
+  const commentsQuery = useFetchData<CommentType[]>([
+    "posts",
+    postId || "",
+    "comments",
+  ]);
   const userQuery = useFetchData<UserType>(
     ["users", `${data?.userId}`],
     !isPending
   );
-
-  // const commentsQuery = useFetchData<PostType>(["posts", postId  || '', "comments"]);
 
   if (error) return "An error has occurred: " + error.message;
 
@@ -37,6 +40,10 @@ const Post = () => {
           <h3 className=" font-bold text-3xl">{data?.title}</h3>
           <h3 className="text-2xl text-muted-foreground">{data?.body}</h3>
         </div>
+        <PostComments
+          data={commentsQuery.data}
+          isLoading={commentsQuery.isPending}
+        />
       </div>
     </div>
   );
