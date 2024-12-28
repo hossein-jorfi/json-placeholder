@@ -10,7 +10,7 @@ const Users = () => {
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+    <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
       {data?.map((user) => (
         <UserCard key={user.id} {...user} />
       ))}
