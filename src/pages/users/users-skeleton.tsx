@@ -1,4 +1,4 @@
-const UsersDkeleton = () => {
+const UsersSkeleton = () => {
       return (
             <div>
                   UsersDkeleton
@@ -6,4 +6,4 @@ const UsersDkeleton = () => {
       );
 };
 
-export default UsersDkeleton;
+export default UsersSkeleton;
