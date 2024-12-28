@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MapPin, PhoneCall, AtSign, Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const UserCard = ({
   name,
@@ -33,6 +34,8 @@ const UserCard = ({
         <InfoItem icon={<PhoneCall className="w-4" />} info={phone} />
         <InfoItem icon={<Globe className="w-4" />} info={website} />
       </div>
+
+      <Button variant='secondary'>Detail</Button>
     </div>
   );
 };
