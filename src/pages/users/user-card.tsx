@@ -3,8 +3,10 @@ import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MapPin, PhoneCall, AtSign, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router";
 
 const UserCard = ({
+  id,
   name,
   email,
   address,
@@ -12,6 +14,12 @@ const UserCard = ({
   username,
   website,
 }: UserType) => {
+  const navigate = useNavigate();
+
+  const navigateHandler = () => {
+    navigate(`detail/${id}`);
+  };
+
   return (
     <div className="border p-4 rounded-lg flex flex-col gap-3 justify-between">
       <div className="flex items-center gap-2">
@@ -35,7 +43,9 @@ const UserCard = ({
         <InfoItem icon={<Globe className="w-4" />} info={website} />
       </div>
 
-      <Button variant='secondary'>Detail</Button>
+      <Button variant="secondary" onClick={navigateHandler}>
+        Detail
+      </Button>
     </div>
   );
 };
