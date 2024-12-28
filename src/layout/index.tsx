@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/breadcrumb";
 import {
   SidebarInset,
-  SidebarProvider,
   SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useLocation, useNavigate } from "react-router";
 import { ModeToggle } from "@/components/ui/mode-toggle";
@@ -22,6 +22,8 @@ interface Props {
 }
 
 export default function Layout({ children }: Props) {
+  const { open } = useSidebar()
+  console.log(open)
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export default function Layout({ children }: Props) {
   };
 
   const renderHeader = (
-    <header className="flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4">
+    <header className="flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4 fixed w-[80%]">
       <div className="flex items-center gap-2">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
@@ -43,7 +45,9 @@ export default function Layout({ children }: Props) {
                 <BreadcrumbItem
                   onClick={() => navigateHandler(item, index)}
                   className={`${
-                    index == 1 ? "cursor-pointer hover:underline" : "cursor-default"
+                    index == 1
+                      ? "cursor-pointer hover:underline"
+                      : "cursor-default"
                   }`}
                 >
                   <BreadcrumbPage>{item}</BreadcrumbPage>
@@ -62,14 +66,14 @@ export default function Layout({ children }: Props) {
   );
 
   return (
-    <SidebarProvider>
+    <>
       <AppSidebar />
       <ScrollArea className="h-screen w-full">
         <SidebarInset>
           {renderHeader}
-          <div className="px-4 pb-4">{children}</div>
+          <div className="px-4 pb-4 mt-16">{children}</div>
         </SidebarInset>
       </ScrollArea>
-    </SidebarProvider>
+    </>
   );
 }
