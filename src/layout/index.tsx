@@ -8,22 +8,17 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {
-  SidebarInset,
-  SidebarTrigger,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { useLocation, useNavigate } from "react-router";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 
 interface Props {
   children: ReactNode;
 }
 
 export default function Layout({ children }: Props) {
-  const { open } = useSidebar()
-  console.log(open)
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -34,7 +29,11 @@ export default function Layout({ children }: Props) {
   };
 
   const renderHeader = (
-    <header className="flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4 fixed w-[80%]">
+    <header
+      className={cn(
+        "flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4 fixed w-full"
+      )}
+    >
       <div className="flex items-center gap-2">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mr-2 h-4" />
@@ -60,14 +59,13 @@ export default function Layout({ children }: Props) {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-
-      <ModeToggle />
     </header>
   );
 
   return (
     <>
       <AppSidebar />
+      <ModeToggle />
       <ScrollArea className="h-screen w-full">
         <SidebarInset>
           {renderHeader}
