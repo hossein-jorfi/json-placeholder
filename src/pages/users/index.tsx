@@ -5,14 +5,12 @@ import UserCard from "./user-card";
 const Users = () => {
   const { isPending, error, data } = useFetchData<UserType[]>(["users"]);
 
-  console.log("first");
-
   if (isPending) return <div>loading</div>;
 
   if (error) return "An error has occurred: " + error.message;
 
   return (
-    <div>
+    <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
       {data?.map((user) => (
         <UserCard key={user.id} {...user} />
       ))}
