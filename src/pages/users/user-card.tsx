@@ -1,9 +1,16 @@
 import { ReactNode } from "react";
 import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MapPin, PhoneCall, AtSign } from "lucide-react";
+import { MapPin, PhoneCall, AtSign, Globe } from "lucide-react";
 
-const UserCard = ({ name, email, address, phone, username }: UserType) => {
+const UserCard = ({
+  name,
+  email,
+  address,
+  phone,
+  username,
+  website,
+}: UserType) => {
   return (
     <div className="border p-4 rounded-lg flex flex-col gap-3 justify-between">
       <div className="flex items-center gap-2">
@@ -24,6 +31,7 @@ const UserCard = ({ name, email, address, phone, username }: UserType) => {
         <InfoItem icon={<MapPin className="w-4" />} info={address.city} />
         <InfoItem icon={<AtSign className="w-4" />} info={email} />
         <InfoItem icon={<PhoneCall className="w-4" />} info={phone} />
+        <InfoItem icon={<Globe className="w-4" />} info={website} />
       </div>
     </div>
   );
