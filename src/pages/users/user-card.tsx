@@ -3,7 +3,7 @@ import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MapPin, PhoneCall, AtSign } from "lucide-react";
 
-const UserCard = ({ name, email, address, phone }: UserType) => {
+const UserCard = ({ name, email, address, phone, username }: UserType) => {
   return (
     <div className="border p-4 rounded-lg flex flex-col gap-3 justify-between">
       <div className="flex items-center gap-2">
@@ -16,7 +16,7 @@ const UserCard = ({ name, email, address, phone }: UserType) => {
         </Avatar>
         <div className="flex flex-col">
           <p className="text-sm font-bold">{name}</p>
-          <p className="text-xs font-semibold opacity-50">{email}</p>
+          <p className="text-xs font-semibold opacity-50">{username}</p>
         </div>
       </div>
 
