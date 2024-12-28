@@ -31,7 +31,7 @@ export default function Layout({ children }: Props) {
   const renderHeader = (
     <header
       className={cn(
-        "flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4 fixed w-full bg-background/70 backdrop-blur-md"
+        "flex justify-between h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 px-4 fixed w-full bg-background/70 backdrop-blur-md z-10"
       )}
     >
       <div className="flex items-center gap-2">
