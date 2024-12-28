@@ -1,5 +1,6 @@
 import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MapPin } from "lucide-react";
 
 const UserCard = ({ name, email, address }: UserType) => {
   return (
@@ -18,7 +19,12 @@ const UserCard = ({ name, email, address }: UserType) => {
         </div>
       </div>
 
-      <p>{address.city}</p>
+      <div className="text-sm font-semibold mt-1 text-foreground/80">
+        <div className="flex gap-1 items-center">
+          <MapPin  className="w-4"/>
+          <p>{address.city}</p>
+        </div>
+      </div>
     </div>
   );
 };
