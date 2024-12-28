@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { MapPin, PhoneCall } from "lucide-react";
+import { MapPin, PhoneCall, AtSign } from "lucide-react";
 
 const UserCard = ({ name, email, address, phone }: UserType) => {
   return (
@@ -22,6 +22,7 @@ const UserCard = ({ name, email, address, phone }: UserType) => {
 
       <div className="text-sm font-semibold mt-1 text-foreground/80 flex flex-col gap-1">
         <InfoItem icon={<MapPin className="w-4" />} info={address.city} />
+        <InfoItem icon={<AtSign className="w-4" />} info={email} />
         <InfoItem icon={<PhoneCall className="w-4" />} info={phone} />
       </div>
     </div>
