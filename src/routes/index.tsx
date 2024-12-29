@@ -7,6 +7,7 @@ import Posts from "@/pages/posts";
 import Users from "@/pages/users";
 import ErrorPage from "@/pages/error";
 import Post from "@/pages/post";
+import User from "@/pages/user";
 
 export const router = createBrowserRouter([
   {
@@ -30,14 +31,23 @@ export const router = createBrowserRouter([
             element: <Posts />,
           },
           {
-            path: 'detail/:postId',
+            path: "detail/:postId",
             element: <Post />,
-          }
-        ]
+          },
+        ],
       },
       {
         path: "users",
-        element: <Users />,
+        children: [
+          {
+            index: true,
+            element: <Users />,
+          },
+          {
+            path: "detail/:userId",
+            element: <User />,
+          },
+        ],
       },
     ],
   },
