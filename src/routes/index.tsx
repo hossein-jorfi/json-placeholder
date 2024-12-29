@@ -8,6 +8,7 @@ import Users from "@/pages/users";
 import ErrorPage from "@/pages/error";
 import Post from "@/pages/post";
 import User from "@/pages/user";
+import Todos from "@/pages/todos";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,15 @@ export const router = createBrowserRouter([
           {
             path: "detail/:postId",
             element: <Post />,
+          },
+        ],
+      },
+      {
+        path: "todos",
+        children: [
+          {
+            index: true,
+            element: <Todos />,
           },
         ],
       },
