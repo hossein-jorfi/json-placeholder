@@ -9,14 +9,14 @@ interface Props {
 
 const UserPosts = ({ data }: Props) => {
   return (
-    <div className="flex flex-col max-h-72 overflow-hidden gap-2">
+    <div className="flex flex-col max-h-96 overflow-hidden gap-2">
       <p className="text-sm font-semibold">Posts</p>
       <ScrollArea className="flex flex-col">
         {data?.map((post, index) => (
           <div
             key={post.id}
             className={cn(
-              "flex flex-col border p-3 rounded-lg my-3",
+              "flex flex-col border p-3 rounded-lg my-3 gap-2",
               index == 0 && "mt-0"
             )}
           >
@@ -24,7 +24,7 @@ const UserPosts = ({ data }: Props) => {
               <p className="font-semibold opacity-70">{post.title}</p>
             </div>
             <p className="opacity-50">{post.body}</p>
-            <Button>See More</Button>
+            <Button className="h-8">See More</Button>
           </div>
         ))}
       </ScrollArea>
