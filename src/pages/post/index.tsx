@@ -14,18 +14,15 @@ const Post = () => {
 
   const [liked, setLiked] = useState(false);
 
-  const { isPending, error, data } = useFetchData<PostType>([
-    "posts",
-    postId || "",
-  ]);
+  const postQuery = useFetchData<PostType>(["posts", postId || ""]);
   const commentsQuery = useFetchData<CommentType[]>([
     "posts",
     postId || "",
     "comments",
   ]);
   const userQuery = useFetchData<UserType>(
-    ["users", `${data?.userId}`],
-    !isPending
+    ["users", `${postQuery.data?.userId}`],
+    !postQuery.isPending
   );
 
   useEffect(() => {
@@ -37,9 +34,10 @@ const Post = () => {
     setLiked(!liked);
   };
 
-  if (error) return "An error has occurred: " + error.message;
+  if (postQuery.error)
+    return "An error has occurred: " + postQuery.error.message;
 
-  if (isPending) return <PostSkeleton />;
+  if (postQuery.isPending) return <PostSkeleton />;
 
   return (
     <div className="flex justify-center items-center sm:mt-10 xl:mt-20">
@@ -52,8 +50,10 @@ const Post = () => {
         </div>
         <div className="w-full border" />
         <div className="space-y-3">
-          <h3 className=" font-bold text-3xl">{data?.title}</h3>
-          <h3 className="text-2xl text-muted-foreground">{data?.body}</h3>
+          <h3 className=" font-bold text-3xl">{postQuery.data?.title}</h3>
+          <h3 className="text-2xl text-muted-foreground">
+            {postQuery.data?.body}
+          </h3>
         </div>
         <PostComments
           data={commentsQuery.data}
