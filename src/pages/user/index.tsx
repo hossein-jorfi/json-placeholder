@@ -4,6 +4,7 @@ import useFetchData from "@/service/use-fetch-data";
 import { useParams } from "react-router";
 import { InfoItem } from "../users/user-card";
 import { MapPin, PhoneCall, AtSign, Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const User = () => {
   const { userId } = useParams();
@@ -15,19 +16,26 @@ const User = () => {
   return (
     <div className="flex justify-center items-center sm:mt-10 xl:mt-20">
       <div className="border-2 rounded-lg w-full md:w-2/3 p-5 space-y-3">
-        <div className="flex items-center gap-2">
-          <Avatar>
-            <AvatarImage src="" alt="@shadcn" />
-            <AvatarFallback>
-              {userQuery?.data?.name?.split(" ")?.[0]?.[0]}
-              {userQuery?.data?.name?.split(" ")?.[1]?.[0]}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col">
-            <p className="text-sm font-bold">{userQuery?.data?.name}</p>
-            <p className="text-xs font-semibold opacity-50">
-              {userQuery?.data?.username}
-            </p>
+        <div className="flex justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Avatar>
+              <AvatarImage src="" alt="@shadcn" />
+              <AvatarFallback>
+                {userQuery?.data?.name?.split(" ")?.[0]?.[0]}
+                {userQuery?.data?.name?.split(" ")?.[1]?.[0]}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col">
+              <p className="text-sm font-bold">{userQuery?.data?.name}</p>
+              <p className="text-xs font-semibold opacity-50">
+                {userQuery?.data?.username}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Button variant="destructive">Delete</Button>
+            <Button variant="outline">Edit</Button>
           </div>
         </div>
 
