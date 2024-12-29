@@ -31,7 +31,11 @@ const UserPosts = ({ data }: Props) => {
               <p className="font-semibold opacity-90">{post.title}</p>
             </div>
             <p className="opacity-60">{post.body}</p>
-            <Button className="h-8" onClick={() => navigateHandler(post.id)}>
+            <Button
+              className="h-8 w-full xl:w-fit"
+              variant="secondary"
+              onClick={() => navigateHandler(post.id)}
+            >
               See More
             </Button>
           </div>
