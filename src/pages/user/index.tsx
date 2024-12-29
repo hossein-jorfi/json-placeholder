@@ -5,11 +5,16 @@ import { useParams } from "react-router";
 import { InfoItem } from "../users/user-card";
 import { MapPin, PhoneCall, AtSign, Globe, Trash2, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const User = () => {
   const { userId } = useParams();
 
   const userQuery = useFetchData<UserType>(["users", userId || ""]);
+
+  const clickHandler = () => {
+    toast("test");
+  };
 
   if (userQuery.isPending) return "Loading...";
 
@@ -34,10 +39,10 @@ const User = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button size="icon" variant="warning">
+            <Button size="icon" variant="warning" onClick={clickHandler}>
               <Pencil />
             </Button>
-            <Button size="icon" variant="destructive">
+            <Button size="icon" variant="destructive" onClick={clickHandler}>
               <Trash2 />
             </Button>
           </div>
