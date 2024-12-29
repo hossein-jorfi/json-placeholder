@@ -3,7 +3,7 @@ import { UserType } from "@/defenitions";
 import useFetchData from "@/service/use-fetch-data";
 import { useParams } from "react-router";
 import { InfoItem } from "../users/user-card";
-import { MapPin, PhoneCall, AtSign, Globe } from "lucide-react";
+import { MapPin, PhoneCall, AtSign, Globe, Trash2, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const User = () => {
@@ -34,8 +34,12 @@ const User = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button variant="destructive">Delete</Button>
-            <Button variant="outline">Edit</Button>
+            <Button size="icon" variant="destructive">
+              <Trash2 />
+            </Button>
+            <Button size="icon" variant="outline">
+              <Pencil />
+            </Button>
           </div>
         </div>
 
