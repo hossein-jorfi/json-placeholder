@@ -13,7 +13,14 @@ const User = () => {
   const userQuery = useFetchData<UserType>(["users", userId || ""]);
 
   const clickHandler = () => {
-    toast("test");
+    toast("Action Not Available !", {
+      action: {
+        label: "Close",
+        onClick: () => {},
+      },
+      description:
+        "This website using a fake REST API and Database Mutaions cant be done",
+    });
   };
 
   if (userQuery.isPending) return "Loading...";
