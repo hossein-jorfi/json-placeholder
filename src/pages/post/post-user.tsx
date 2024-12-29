@@ -1,6 +1,7 @@
 import { UserType } from "@/defenitions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PostUserSkeleton } from "./post-skeleton";
+import { useNavigate } from "react-router";
 
 interface Props {
   data: UserType | undefined;
@@ -8,10 +9,17 @@ interface Props {
 }
 
 const PostUser = ({ data, isLoading }: Props) => {
-  if (isLoading) return <PostUserSkeleton />;
+  const navigate = useNavigate();
+  const navigateHandler = () => {
+    navigate(`/users/detail/${data?.id}`);
+  };
 
+  if (isLoading) return <PostUserSkeleton />;
   return (
-    <div className="flex items-center gap-2">
+    <div
+      className="flex items-center gap-2 cursor-pointer"
+      onClick={navigateHandler}
+    >
       <Avatar>
         <AvatarImage src="" alt="@shadcn" />
         <AvatarFallback>
