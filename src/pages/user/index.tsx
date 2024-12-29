@@ -34,7 +34,7 @@ const User = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Button size="icon" variant="secondary">
+            <Button size="icon" variant="warning">
               <Pencil />
             </Button>
             <Button size="icon" variant="destructive">
