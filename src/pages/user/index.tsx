@@ -1,16 +1,19 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { UserType } from "@/defenitions";
+import { PostType, UserType } from "@/defenitions";
 import useFetchData from "@/service/use-fetch-data";
 import { useParams } from "react-router";
 import { InfoItem } from "../users/user-card";
 import { MapPin, PhoneCall, AtSign, Globe, Trash2, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import UserPosts from "./user-posts";
 
 const User = () => {
   const { userId } = useParams();
+  const id = userId || "";
 
-  const userQuery = useFetchData<UserType>(["users", userId || ""]);
+  const userQuery = useFetchData<UserType>(["users", id]);
+  const postsQuery = useFetchData<PostType[]>(["users", id, "posts"]);
 
   const clickHandler = () => {
     toast("Action Not Available !", {
@@ -73,6 +76,8 @@ const User = () => {
             info={userQuery?.data?.website}
           />
         </div>
+
+        <UserPosts data={postsQuery.data} />
       </div>
     </div>
   );

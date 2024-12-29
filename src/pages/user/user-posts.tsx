@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 
 interface Props {
   data: PostType[] | undefined;
-  isLoading: boolean;
 }
 
 const UserPosts = ({ data }: Props) => {
