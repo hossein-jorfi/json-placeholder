@@ -29,6 +29,7 @@ const Posts = () => {
 
   const filterData = () => {
     const show = !showLikedPosts;
+    setCurrentPage(1)
     if (show) {
       const likedPosts = JSON?.parse(
         localStorage?.getItem("liked-post") || "[]"
