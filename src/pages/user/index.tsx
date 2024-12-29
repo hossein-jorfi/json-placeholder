@@ -34,11 +34,11 @@ const User = () => {
           </div>
 
           <div className="flex items-center gap-2">
+            <Button size="icon" variant="secondary">
+              <Pencil />
+            </Button>
             <Button size="icon" variant="destructive">
               <Trash2 />
-            </Button>
-            <Button size="icon" variant="outline">
-              <Pencil />
             </Button>
           </div>
         </div>
