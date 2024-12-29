@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserType } from "@/defenitions";
 import useFetchData from "@/service/use-fetch-data";
 import { useParams } from "react-router";
@@ -12,7 +13,21 @@ const User = () => {
   return (
     <div className="flex justify-center items-center sm:mt-10 xl:mt-20">
       <div className="border-2 rounded-lg w-full md:w-2/3 p-5 space-y-3">
-        {userQuery.data?.name}
+        <div className="flex items-center gap-2">
+          <Avatar>
+            <AvatarImage src="" alt="@shadcn" />
+            <AvatarFallback>
+              {userQuery?.data?.name?.split(" ")?.[0]?.[0]}
+              {userQuery?.data?.name?.split(" ")?.[1]?.[0]}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <p className="text-sm font-bold">{userQuery?.data?.name}</p>
+            <p className="text-xs font-semibold opacity-50">
+              {userQuery?.data?.username}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
