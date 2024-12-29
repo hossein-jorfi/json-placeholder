@@ -52,7 +52,13 @@ const UserCard = ({
 
 export default UserCard;
 
-const InfoItem = ({ icon, info }: { info: string; icon: ReactNode }) => {
+export const InfoItem = ({
+  icon,
+  info,
+}: {
+  info: string | undefined;
+  icon: ReactNode;
+}) => {
   return (
     <div className="flex gap-1 items-center">
       {icon}
