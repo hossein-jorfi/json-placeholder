@@ -7,6 +7,7 @@ import { MapPin, PhoneCall, AtSign, Globe, Trash2, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import UserPosts from "./user-posts";
+import UserSkeleton from "./user-skeleton";
 
 const User = () => {
   const { userId } = useParams();
@@ -26,7 +27,7 @@ const User = () => {
     });
   };
 
-  if (userQuery.isPending) return "Loading...";
+  if (userQuery.isPending) return <UserSkeleton />;
 
   return (
     <div className="flex justify-center items-center sm:mt-10 xl:mt-20">
