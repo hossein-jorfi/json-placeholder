@@ -6,7 +6,10 @@ const UserSkeleton = () => {
       <div className="border-2 rounded-lg w-full md:w-2/3 p-5 space-y-3">
         <div className="flex items-center gap-3 justify-between">
           <UserAvatarSkeleton />
-          <Skeleton className="w-10 h-10 rounded-full" />
+          <div className="flex gap-2">
+            <Skeleton className="w-10 h-10" />
+            <Skeleton className="w-10 h-10" />
+          </div>
         </div>
         <div className="w-full border" />
         <div className="space-y-3">
