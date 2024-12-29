@@ -69,7 +69,7 @@ export default function Layout({ children }: Props) {
       <ScrollArea className="h-screen w-full">
         <SidebarInset>
           {renderHeader}
-          <div className="px-4 pb-4 mt-16">{children}</div>
+          <div className="px-4 pb-4 mt-16 container">{children}</div>
         </SidebarInset>
       </ScrollArea>
     </>
