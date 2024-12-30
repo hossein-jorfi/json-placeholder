@@ -19,7 +19,7 @@ const TodoCard = ({ todo, user }: Props) => {
       <div className="flex justify-between">
         <p className="text-sm font-bold text-primary/70"># {todo.id}</p>
         <TooltipProvider>
-          <Tooltip>
+          <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
               <div>
                 {todo.completed ? (
