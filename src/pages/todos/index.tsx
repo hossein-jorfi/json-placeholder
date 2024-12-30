@@ -12,7 +12,7 @@ const Todos = () => {
   return (
     <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
       {data?.map((todo) => (
-        <TodoCard key={todo.id} data={todo} />
+        <TodoCard key={todo.id} todo={todo} />
       ))}
     </div>
   );
