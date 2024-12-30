@@ -20,11 +20,13 @@ export function NavMain({
   }[];
 }) {
   const navigate = useNavigate();
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, isMobile } = useSidebar();
   const { pathname } = useLocation();
 
   const navigateHandler = (url: string) => {
-    toggleSidebar();
+    if (isMobile) {
+      toggleSidebar();
+    }
     navigate(url);
   };
 
