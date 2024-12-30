@@ -34,3 +34,9 @@ export interface UserType {
     bs: string;
   };
 }
+export interface TodoType {
+  completed: boolean;
+  title: string;
+  id: number;
+  userId: number;
+}
