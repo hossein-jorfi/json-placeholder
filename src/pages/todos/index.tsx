@@ -6,7 +6,7 @@ const Todos = () => {
   const { isPending, error, data } = useFetchData<TodoType[]>(["todos"]);
   const userQuery = useFetchData<UserType[]>(["users"]);
 
-  if (isPending) return "Loading...";
+  if (isPending || userQuery.isPending) return "Loading...";
 
   if (error) return "An error has occurred: " + error.message;
 
