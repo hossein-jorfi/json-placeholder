@@ -8,7 +8,7 @@ interface Props {
 
 const TodoCard = ({ todo, user }: Props) => {
   return (
-    <div className="border-2 p-3 rounded-lg min-h-28">
+    <div className="border-2 p-3 rounded-lg min-h-44 flex flex-col justify-between">
       <div className="flex justify-between">
         <p className="text-sm font-bold text-primary/70"># {todo.id}</p>
         <p>{todo.completed ? "Done" : "In Progress"}</p>

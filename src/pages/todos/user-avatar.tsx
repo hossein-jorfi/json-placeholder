@@ -17,7 +17,7 @@ const UserAvatar = ({ data }: Props) => {
       className="flex items-center gap-2 cursor-pointer"
       onClick={navigateHandler}
     >
-      <Avatar>
+      <Avatar className="w-8 h-8 text-xs">
         <AvatarImage src="" alt="@shadcn" />
         <AvatarFallback>
           {data?.name?.split(" ")?.[0]?.[0]}
