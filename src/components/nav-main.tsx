@@ -5,6 +5,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useNavigate, useLocation } from "react-router";
 
@@ -19,9 +20,11 @@ export function NavMain({
   }[];
 }) {
   const navigate = useNavigate();
+  const { toggleSidebar } = useSidebar();
   const { pathname } = useLocation();
 
   const navigateHandler = (url: string) => {
+    toggleSidebar();
     navigate(url);
   };
 
@@ -35,7 +38,8 @@ export function NavMain({
               tooltip={item.title}
               onClick={() => navigateHandler(item.url)}
               className={`${
-                pathname?.split('/').includes(item.url?.split('/')[1]) && "outline outline-1 outline-sidebar-foreground/30"
+                pathname?.split("/").includes(item.url?.split("/")[1]) &&
+                "outline outline-1 outline-sidebar-foreground/30"
               }`}
             >
               {item.icon && <item.icon />}
