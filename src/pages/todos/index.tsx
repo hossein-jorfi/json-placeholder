@@ -1,9 +1,10 @@
-import { TodoType } from "@/defenitions";
+import { TodoType, UserType } from "@/defenitions";
 import useFetchData from "@/service/use-fetch-data";
 import TodoCard from "./todo-card";
 
 const Todos = () => {
   const { isPending, error, data } = useFetchData<TodoType[]>(["todos"]);
+  const userQuery = useFetchData<UserType[]>(["users"]);
 
   if (isPending) return "Loading...";
 
@@ -12,7 +13,11 @@ const Todos = () => {
   return (
     <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
       {data?.map((todo) => (
-        <TodoCard key={todo.id} todo={todo} />
+        <TodoCard
+          key={todo.id}
+          todo={todo}
+          user={userQuery?.data?.find((user) => user.id == todo.userId)}
+        />
       ))}
     </div>
   );
