@@ -7,8 +7,10 @@ const Todos = () => {
 
   if (isPending) return "Loading...";
 
+  if (error) return "An error has occurred: " + error.message;
+
   return (
-    <div>
+    <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
       {data?.map((todo) => (
         <TodoCard key={todo.id} data={todo} />
       ))}
