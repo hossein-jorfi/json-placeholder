@@ -9,7 +9,10 @@ interface Props {
 const TodoCard = ({ todo, user }: Props) => {
   return (
     <div className="border-2 p-3 rounded-lg min-h-28">
-      <p className="text-sm font-bold text-primary/70"># {todo.id}</p>
+      <div className="flex justify-between">
+        <p className="text-sm font-bold text-primary/70"># {todo.id}</p>
+        <p>{todo.completed ? "Done" : "In Progress"}</p>
+      </div>
       <p className="font-semibold text-primary/70">{todo.title}</p>
       <UserAvatar data={user} />
     </div>
