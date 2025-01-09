@@ -23,16 +23,16 @@ describe("Like Posts", () => {
     const result: number[] = JSON.parse(
       localStorage.getItem(STORAGE_KEY) || ""
     );
-    // expect(result.includes(POST_ID)).toBeTruthy();
-    expect(result).toContain(POST_ID)
+    expect(result).toContain(POST_ID);
   });
 
-  // test("remove given id from liked-post array if its already there", () => {
-  //   handlePostLikeLocalStorage(POST_ID);
-  //   handlePostLikeLocalStorage(POST_ID);
-  //   const result: number[] = JSON.parse(
-  //     localStorage.getItem(STORAGE_KEY) || ""
-  //   );
-  //   expect(result.includes(POST_ID)).toBeTruthy();
-  // });
+  test("remove given id from liked-post array if its already there", () => {
+    // first time add it to array, second time shuld remove it
+    handlePostLikeLocalStorage(POST_ID);
+    handlePostLikeLocalStorage(POST_ID);
+    const result: number[] = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || ""
+    );
+    expect(result).not.toContain(POST_ID);
+  });
 });
